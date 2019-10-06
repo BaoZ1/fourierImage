@@ -17,32 +17,32 @@ using std::complex;
 
 class fourierImage : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    fourierImage(bool, int, int, int, vector<complex<double> >(*), int, QWidget* parent = Q_NULLPTR);
-    void paintEvent(QPaintEvent*);
+	fourierImage(bool, int, int, int, vector<complex<double> >(*), int, double, vector<complex<double> >(*), QWidget* parent = Q_NULLPTR);
+	void paintEvent(QPaintEvent*);
 
 protected:
-    void mousePressEvent(QMouseEvent*);
-    void mouseReleaseEvent(QMouseEvent*);
-    void mouseMoveEvent(QMouseEvent*);
-    void wheelEvent(QWheelEvent*);
-    void resizeEvent(QResizeEvent*);
+	void mousePressEvent(QMouseEvent*);
+	void mouseReleaseEvent(QMouseEvent*);
+	void mouseMoveEvent(QMouseEvent*);
+	void wheelEvent(QWheelEvent*);
+	void resizeEvent(QResizeEvent*);
 
 private:
-    QTimer* timer;
-    double imageProgress, scaleRatio;
-    QPainterPath* PATH, * path;
-    vector<complex<double> >* coefficients_I;
-    complex<int> mouseCoord_widget, startingPoint;
-    complex<double> widgetCenter;
-    bool pressed, suspended, following, antialiasing;
-    int fineness, settingWidth, settingHeight;
-    QPushButton* suspendBtn, * followBtn, * homeBtn;
+	QTimer* timer;
+	double imageProgress, scaleRatio, totalLength;
+	QPainterPath* PATH, * path;
+	vector<complex<double> >* coefficients_I, * hiddenPaths;
+	complex<int> mouseCoord_widget, startingPoint;
+	complex<double> widgetCenter;
+	bool pressed, suspended, following, antialiasing;
+	int fineness, settingWidth, settingHeight;
+	QPushButton* suspendBtn, * followBtn, * homeBtn;
 
-    void calculate();
+	void calculate();
 
 signals:
-    void sendProgress(int, complex<double>);
+	void sendProgress(int, complex<double>);
 };

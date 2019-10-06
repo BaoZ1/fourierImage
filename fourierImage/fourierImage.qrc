@@ -1,5 +1,7 @@
 <RCC>
-    <qresource prefix="/fourierImage"/>
+    <qresource prefix="/fourierImage">
+        <file>empty.png</file>
+    </qresource>
     <qresource prefix="/translate">
         <file>fourierimage_zh.qm</file>
     </qresource>

@@ -11,22 +11,22 @@ using std::vector;
 
 class calculateThread : public QThread
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    calculateThread(double, int, vector<double>(*), int, int, int, vector<complex<double> >(*), vector<complex<double> >(*), QWidget* parent = 0);
-    ~calculateThread();
+	calculateThread(double, int, vector<double>(*), int, int, int, vector<complex<double> >(*), vector<complex<double> >(*), QWidget* parent = 0);
+	~calculateThread();
 
 protected:
-    void run();
+	void run();
 
 private:
-    int begin, end, serialNumber, keyNum;
-    double part, progress, accuracy;
-    vector<complex<double> >* datas, * results, * coefficients, * path;
-    vector<double>* totalLength;
+	int begin, end, serialNumber, keyNum;
+	double part, progress, accuracy;
+	vector<complex<double> >* datas, * results, * coefficients, * path;
+	vector<double>* totalLength;
 
 signals:
-    void sendProgress(int, complex<double>);
-    void finished();
+	void sendProgress(int, complex<double>);
+	void finished();
 };
