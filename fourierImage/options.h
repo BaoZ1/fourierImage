@@ -48,7 +48,6 @@ private:
 	vector<complex<double> >coefficients, hiddenPaths;
 	QWidget* dotsWidget;
 	vector<double> linesLength;
-	vector<bool> hiddenLines;
 	vector<besselCurve> besselCurves;
 
 	void listUpDate();

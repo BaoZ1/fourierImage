@@ -96,7 +96,7 @@ options::options(QWidget* parent)
 	connect(point, &QLineEdit::returnPressed, this, &options::add);
 	connect(addBtn, &QPushButton::clicked, this, &options::add);
 	connect(graphBtn, &QPushButton::clicked, [&] {
-		dotsGraph = new coordinateWidget(this, pointList, record, &units, &hiddenLines);
+		dotsGraph = new coordinateWidget(this, pointList, record, &units);
 		connect(dotsGraph, SIGNAL(addPoint(complex<double>)), this, SLOT(addFromCoord(complex<double>)));
 		connect(dotsGraph, SIGNAL(insertPoint(complex<double>, int)), this, SLOT(insertFromCoord(complex<double>, int)));
 		connect(dotsGraph, SIGNAL(delPoint(int)), this, SLOT(delFromCoord(int)));
@@ -139,13 +139,13 @@ options::options(QWidget* parent)
 				linesLength[i + 1] += linesLength[i];
 			}
 
-			for (int i = 0; i < hiddenLines.size(); i++)
+			for (int i = 0; i < units.size(); i++)
 			{
-				if (hiddenLines[i])
+				if (units[i]->lineMode == listUnit::hide)
 				{
 					if (i != 0)
 					{
-						if (hiddenLines[i - 1])
+						if (units[i - 1]->lineMode == listUnit::hide)
 						{
 							hiddenPaths[hiddenPaths.size() - 1].imag(linesLength[i + 1]);
 						}
@@ -197,6 +197,20 @@ options::~options()
 {
 }
 
+void options::listUpDate()
+{
+	for (int i = 0; i < units.size(); i++)
+	{
+		units[i]->refresh(i);
+	}
+	if (pointList->parent() == dotsGraph)
+	{
+		dotsGraph->update();
+	}
+
+	record->setText(QString::number(pointNum) + "/" + QString::number(pointsLimit));
+}
+
 void options::add()
 {
 	if (pointNum == pointsLimit - 1)
@@ -219,22 +233,7 @@ void options::add()
 		pointNum++;
 		point->clear();
 	}
-	hiddenLines.push_back(false);
 	listUpDate();
-}
-
-void options::listUpDate()
-{
-	for (int i = 0; i < units.size(); i++)
-	{
-		units[i]->setNumber(i);
-	}
-	if (pointList->parent() == dotsGraph)
-	{
-		dotsGraph->update();
-	}
-
-	record->setText(QString::number(pointNum) + "/" + QString::number(pointsLimit));
 }
 
 void options::del(listUnit* U)
@@ -244,7 +243,6 @@ void options::del(listUnit* U)
 	units.erase(units.begin() + i);
 	delete pointList->takeItem(i);
 	pointNum--;
-	hiddenLines.erase(hiddenLines.begin() + i);
 	listUpDate();
 }
 
@@ -292,7 +290,6 @@ void options::insert(listUnit* U)
 			pointNum++;
 			insertW->close();
 
-			hiddenLines.insert(hiddenLines.begin() + i + 1, false);
 			listUpDate();
 		}
 		}
@@ -346,7 +343,6 @@ void options::addFromCoord(complex<double> D)
 	pointList->setItemWidget(pointItem, units[pointNum]);
 	pointNum++;
 
-	hiddenLines.push_back(false);
 	listUpDate();
 }
 
@@ -365,7 +361,6 @@ void options::insertFromCoord(complex<double> C, int I)
 	pointList->setItemWidget(pointItem, units[I + 1]);
 	pointNum++;
 
-	hiddenLines.insert(hiddenLines.begin() + I + 1, false);
 	listUpDate();
 }
 
@@ -375,6 +370,5 @@ void options::delFromCoord(int i)
 	units.erase(units.begin() + i);
 	delete pointList->takeItem(i);
 	pointNum--;
-	hiddenLines.erase(hiddenLines.begin() + i);
 	listUpDate();
 }

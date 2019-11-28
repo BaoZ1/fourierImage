@@ -15,7 +15,7 @@ class coordinateSystem : public QWidget
 	Q_OBJECT
 
 public:
-	coordinateSystem(vector<listUnit*>(*), vector<bool>(*), QWidget* parent = 0);
+	coordinateSystem(vector<listUnit*>(*), QWidget* parent = 0);
 	~coordinateSystem();
 	void paintEvent(QPaintEvent*);
 
@@ -31,15 +31,13 @@ protected:
 
 private:
 	vector<listUnit*>* points;
-	int dotNum, * selectedListPoint, pointSize;
+	int dotNum, pointSize;
 	complex<int> mouseCoord_widget, startingPoint, mouseMode;
 	enum modes { released, pressed };
 	double scaleRatio;
 	complex<double> widgetCenter, widgetCenterOld, mouseCoord_paint;
 	QPushButton* homeBtn;
-	QLabel* cursorCoord;
-	vector<bool>* hiddenLines;
-	bool shiftPressed;
+	bool shiftPressed, C_keyPressed;
 
 signals:
 	void addPoint(complex<double>);

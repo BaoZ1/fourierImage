@@ -13,7 +13,7 @@ class coordinateWidget : public QWidget
 	Q_OBJECT
 
 public:
-	coordinateWidget(QWidget*, QListWidget*, QLabel*, vector<listUnit*>(*), vector<bool>(*), QWidget* parent = 0);
+	coordinateWidget(QWidget*, QListWidget*, QLabel*, vector<listUnit*>(*), QWidget* parent = 0);
 	~coordinateWidget();
 
 protected:
@@ -44,5 +44,4 @@ signals:
 	void insertPoint(complex<double>, int);
 	void delPoint(int);
 	void closing();
-
 };

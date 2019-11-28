@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <QPainter>
 
-coordinateWidget::coordinateWidget(QWidget* O, QListWidget* L, QLabel* PL, vector<listUnit*>(*V), vector<bool>(*HL), QWidget* parent)
+coordinateWidget::coordinateWidget(QWidget* O, QListWidget* L, QLabel* PL, vector<listUnit*>(*V), QWidget* parent)
 	: QWidget(parent)
 {
 	windowPos = QPoint(500, 200);
@@ -21,7 +21,7 @@ coordinateWidget::coordinateWidget(QWidget* O, QListWidget* L, QLabel* PL, vecto
 	coord = new QLabel;
 	coord->setFixedHeight(30);
 
-	ground = new coordinateSystem(V, HL);
+	ground = new coordinateSystem(V);
 	ground->grabKeyboard();
 
 	closeBtn = new QPushButton;
@@ -80,7 +80,6 @@ coordinateWidget::coordinateWidget(QWidget* O, QListWidget* L, QLabel* PL, vecto
 	connect(ground, SIGNAL(delPoint(int)), this, SLOT(del(int)));
 	connect(ground, SIGNAL(coordUpDate(complex<double>)), this, SLOT(labelChange(complex<double>)));
 	connect(ground, &coordinateSystem::mouseLeaved, this, [&] {coord->setText("x:-- , y:--"); });
-
 }
 
 coordinateWidget::~coordinateWidget()
@@ -132,7 +131,7 @@ void coordinateWidget::mousePressEvent(QMouseEvent* e)
 	{
 		mode = 1;
 	}
-	else if(e->pos().y() <= 45)
+	else if (e->pos().y() <= 45)
 	{
 		mode = 2;
 	}
@@ -145,7 +144,7 @@ void coordinateWidget::mouseReleaseEvent(QMouseEvent* e)
 		windowWidth += endPoint.x() - beginPoint.x();
 		windowHeight += endPoint.y() - beginPoint.y();
 	}
-	else if(mode == 2)
+	else if (mode == 2)
 	{
 		windowPos.setX(windowPos.x() + (endPoint.x() - beginPoint.x()));
 		windowPos.setY(windowPos.y() + (endPoint.y() - beginPoint.y()));
