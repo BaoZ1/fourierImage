@@ -1,7 +1,9 @@
+#pragma once
+
 #include "listUnit.h"
 #include <QHBoxLayout>
 
-#define Pi 3.141592653589793
+constexpr double Pi = 3.1415926535897932;
 
 listUnit::listUnit(int I, QString S, QListWidgetItem* LWI, QWidget* parent)
 	: QWidget(parent)

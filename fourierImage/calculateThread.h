@@ -4,8 +4,6 @@
 #include <complex>
 #include <vector>
 
-#define PI 3.1415926535897932
-
 using std::complex;
 using std::vector;
 

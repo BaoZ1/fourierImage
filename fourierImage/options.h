@@ -14,7 +14,7 @@
 #include "calculateProgress.h"
 #include "fourierImage.h"
 
-#define pointsLimit 500
+constexpr int pointsLimit = 500;
 
 using std::vector;
 using std::complex;

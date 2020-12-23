@@ -2,6 +2,8 @@
 #include <QPainter>
 #include <cmath>
 
+constexpr double Pi = 3.1415926535897932;
+
 fourierImage::fourierImage(bool B, int I1, int I2, int I3, vector<complex<double> >(*V), int threadNum, double length, vector<complex<double> >(*hiddens), QWidget* parent)
 	: QWidget(parent)
 {
@@ -183,7 +185,7 @@ void fourierImage::calculate()
 	complex<double> D1 = { 0,0 };
 	for (int i = 0; i < coefficients_I->size(); i++)
 	{
-		double D = (i - fineness) * imageProgress * 2 * PI;
+		double D = (i - fineness) * imageProgress * 2 * Pi;
 		complex<double> D2 = { cos(D), sin(D) };
 		D2 *= coefficients_I->at(i);
 		D1 += D2;
